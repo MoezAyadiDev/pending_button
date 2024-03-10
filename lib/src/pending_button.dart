@@ -8,19 +8,26 @@ class PendingButton extends StatelessWidget {
   final Widget child;
 
   //Widget max width
-  //Default value 300
+  //Default value child width
   final double? width;
 
   //Widget max height
   //Default value 40
   final double? height;
 
-  //onPress methode
+  //asynchronise function
+  //The button use the future to handle the state
+  //on error use onError function
+  //onData use onSeccess function
   final Function asynFunction;
 
   //onError callback
   //return the Error
   final Function? onError;
+
+  //onSucces callback
+  //return the success
+  final Function? onSuccess;
 
   //Function trigger before hundle onPresse
   //should return bolean
@@ -34,8 +41,7 @@ class PendingButton extends StatelessWidget {
   //defalut onPrimary color
   final Color? foregroundColor;
 
-  //The foreground color
-  //defalut onPrimary color
+  //The borderColor color
   final Color? borderColor;
 
   //The Sucees color
@@ -46,13 +52,15 @@ class PendingButton extends StatelessWidget {
   //defalut error color
   final Color? errorColor;
 
-  //defalut onPrimary color
+  //The type of the button
+  //Normal / Outline / Text / Icon
   final ButtonType buttonType;
 
   //defalut borderRadius
   final double borderRadius;
 
-  //defalut Duration
+  //The animation duration
+  //default 300 milleseconde
   final Duration? animationDuration;
 
   const PendingButton({
@@ -70,6 +78,7 @@ class PendingButton extends StatelessWidget {
     this.borderColor,
     this.borderRadius = 10.0,
     this.animationDuration,
+    this.onSuccess,
   }) : buttonType = ButtonType.normal;
 
   const PendingButton.icon({
@@ -84,6 +93,7 @@ class PendingButton extends StatelessWidget {
     this.errorColor,
     Color? iconColor,
     this.animationDuration,
+    this.onSuccess,
   })  : buttonType = ButtonType.icon,
         foregroundColor = iconColor,
         backgroundColor = null,
@@ -104,6 +114,7 @@ class PendingButton extends StatelessWidget {
     this.errorColor,
     this.borderRadius = 10.0,
     this.animationDuration,
+    this.onSuccess,
   })  : buttonType = ButtonType.outline,
         backgroundColor = null;
 
@@ -119,6 +130,7 @@ class PendingButton extends StatelessWidget {
     this.errorColor,
     this.foregroundColor,
     this.animationDuration,
+    this.onSuccess,
   })  : buttonType = ButtonType.text,
         borderColor = null,
         backgroundColor = null,
@@ -140,24 +152,25 @@ class PendingButton extends StatelessWidget {
         );
     Color? colorBorder = borderColor ??
         buttonType.when<Color?>(
-          normal: () => darken(context.themeColor.primary),
+          normal: () => darken(colorBackground),
           text: () => null,
           icon: () => null,
           outline: () => context.themeColor.primary,
         );
     Color colorSucess = successColor ?? Colors.green[600]!;
     Color colorError = errorColor ?? context.themeColor.error;
-    Icon? newIcon = buttonType == ButtonType.icon
-        ? Icon(
-            (child as Icon).icon,
-            color: context.themeColor.primary,
-            size: (child as Icon).size,
-          )
-        : null;
+    // Icon? newIcon = buttonType == ButtonType.icon
+    //     ? Icon(
+    //         (child as Icon).icon,
+    //         color: context.themeColor.primary,
+    //         size: (child as Icon).size,
+    //       )
+    //     : null;
     return ButtonWidget(
       onError: onError,
       asynFunction: asynFunction,
       beforeFunction: beforeFunction,
+      onSuccess: onSuccess,
       height: height,
       width: width,
       backgroundColor: colorBackground,
@@ -168,7 +181,8 @@ class PendingButton extends StatelessWidget {
       succesColor: colorSucess,
       errorColor: colorError,
       animationDuration: animationDuration ?? const Duration(milliseconds: 200),
-      child: buttonType == ButtonType.icon ? newIcon! : child,
+      //child: buttonType == ButtonType.icon ? newIcon! : child,
+      child: child,
     );
   }
 }
