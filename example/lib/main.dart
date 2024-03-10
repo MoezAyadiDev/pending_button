@@ -30,20 +30,25 @@ class HomePage extends StatelessWidget {
             PendingButton(
               asynFunction: futureFunction,
               width: 200,
-              // height: 50,
-              child: const Text('Hello'),
+              borderRadius: 15.0,
+              backgroundColor: Colors.blueAccent,
+              onSuccess: (value) {
+                debugPrint(value.toString());
+              },
+              child: const Text('Filled succes'),
             ),
             PendingButton(
-              asynFunction: futureFunction,
+              asynFunction: () {
+                return futureFunction2(1, 1, 1, 1, 1, 1, 1, 1, 1);
+              },
               width: 200,
-              animationDuration: const Duration(seconds: 3),
               // height: 50,
-              child: const Text('Hello'),
+              child: const Text('Filled with args'),
             ),
             const SizedBox(height: 10),
             PendingButton(
               asynFunction: futureErrorFunction,
-              child: const Text('Hello error'),
+              child: const Text('Short'),
               // width: 200,
               // height: 50,
             ),
@@ -55,17 +60,17 @@ class HomePage extends StatelessWidget {
             const SizedBox(height: 10),
             PendingButton.outlined(
               asynFunction: futureFunction,
-              child: const Text('Oulined button'),
+              child: const Text('Oulined Success'),
             ),
             const SizedBox(height: 10),
             PendingButton.text(
               asynFunction: futureFunction,
-              child: const Text('Text button'),
+              child: const Text('Text success'),
             ),
             const SizedBox(height: 10),
             PendingButton.text(
               asynFunction: futureErrorFunction,
-              child: const Text('Text error'),
+              child: const Text('wrong password'),
             ),
             const SizedBox(height: 10),
             PendingButton.icon(
@@ -74,9 +79,22 @@ class HomePage extends StatelessWidget {
             ),
             const SizedBox(height: 10),
             PendingButton.icon(
-              asynFunction: futureErrorFunction,
-              animationDuration: const Duration(seconds: 3),
+              asynFunction: myFunction,
+              onError: (Exception error) {
+                ScaffoldMessenger.of(context).showSnackBar(
+                  SnackBar(
+                    content: Text(error.toString()),
+                  ),
+                );
+              },
+              onSuccess: (result) {},
               child: const Icon(Icons.delete),
+            ),
+            PendingButton.icon(
+              asynFunction: () {
+                debugPrint('hello');
+              },
+              child: const Icon(Icons.add),
             ),
           ],
         ),
@@ -84,16 +102,33 @@ class HomePage extends StatelessWidget {
     );
   }
 
-  Future<void> futureFunction() =>
+  Future<bool> futureFunction() =>
       Future.delayed(const Duration(seconds: 2)).then(
         (value) {
-          debugPrint('Function handled');
+          return true;
+        },
+      );
+  Future<bool> futureFunction2(int text1, int text2, int text3, int text4,
+          int text5, int text6, int text7, int text8, int text9) =>
+      Future.delayed(const Duration(seconds: 2)).then(
+        (value) {
+          throw const Failures(message: 'Authentification fail');
         },
       );
   Future<void> futureErrorFunction() =>
       Future.delayed(const Duration(seconds: 2)).then(
         (value) {
-          throw Exception('Error');
+          throw const Failures(message: 'Authentification fail');
         },
       );
+  Future<void> myFunction() => Future.delayed(const Duration(seconds: 2)).then(
+        (value) {
+          throw Exception('Authentification fail');
+        },
+      );
+}
+
+class Failures implements Exception {
+  final String message;
+  const Failures({required this.message});
 }
