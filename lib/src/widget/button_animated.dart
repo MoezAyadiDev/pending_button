@@ -214,6 +214,7 @@ class _ButtonAnimatedState extends State<ButtonAnimated>
               textStyle: context.themeText.bodyMedium!
                   .copyWith(color: buttonDecore.foregroundColor),
               borderRadius: BorderRadius.circular(_animateBorederRadius.value),
+              color: Colors.transparent,
               child: InkWell(
                 customBorder: RoundedRectangleBorder(
                   borderRadius:
@@ -353,8 +354,8 @@ class _ButtonAnimatedState extends State<ButtonAnimated>
           vertical: 6.0,
         ),
         icon: () => const EdgeInsets.symmetric(
-          horizontal: 5.0,
-          vertical: 5.0,
+          horizontal: 1.0,
+          vertical: 1.0,
         ),
         outline: () => const EdgeInsets.symmetric(
           horizontal: 20.0,

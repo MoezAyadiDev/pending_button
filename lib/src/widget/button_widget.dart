@@ -4,6 +4,7 @@ import 'package:pending_button/src/widget/button_animated.dart';
 
 class ButtonWidget extends StatefulWidget {
   final Function? onError;
+  final Function? onSuccess;
   final Function? beforeFunction;
   final Function asynFunction;
   final double? height;
@@ -21,6 +22,7 @@ class ButtonWidget extends StatefulWidget {
     super.key,
     required this.asynFunction,
     required this.onError,
+    required this.onSuccess,
     required this.beforeFunction,
     required this.height,
     required this.width,
@@ -58,15 +60,26 @@ class _ButtonWidgetState extends State<ButtonWidget> {
               }
             },
           );
-          Future.delayed(const Duration(seconds: 1)).then((value) {
-            if (mounted) {
-              setState(() {
-                pending = null;
-              });
-            }
-          });
+          Future.delayed(const Duration(seconds: 1)).then(
+            (value) {
+              if (mounted) {
+                setState(
+                  () {
+                    pending = null;
+                  },
+                );
+              }
+            },
+          );
           buttonState = ButtonState.error;
         } else if (snapshot.connectionState == ConnectionState.done) {
+          Future.delayed(Duration.zero).then(
+            (value) {
+              if (widget.onSuccess != null) {
+                widget.onSuccess!(snapshot.data);
+              }
+            },
+          );
           Future.delayed(const Duration(seconds: 1)).then((value) {
             if (mounted) {
               setState(() {
@@ -80,8 +93,6 @@ class _ButtonWidgetState extends State<ButtonWidget> {
         } else {
           buttonState = ButtonState.idle;
         }
-
-        // debugPrint('buttonState from main $buttonState');
 
         return ButtonAnimated(
           backgroundColor: widget.backgroundColor,
@@ -100,8 +111,7 @@ class _ButtonWidgetState extends State<ButtonWidget> {
               final beforResult = await widget.beforeFunction!();
               if (!beforResult) return;
             }
-            if (widget.asynFunction.runtimeType == functionCheck.runtimeType) {
-              // }
+            if (chcekSync(widget.asynFunction)) {
               final future = (widget.asynFunction() as Future<void>);
               setState(() {
                 pending = future;
@@ -116,5 +126,8 @@ class _ButtonWidgetState extends State<ButtonWidget> {
     );
   }
 
-  Future<void> functionCheck() async {}
+  bool chcekSync(Function func) {
+    if (func is Future Function()) return true;
+    return false;
+  }
 }
