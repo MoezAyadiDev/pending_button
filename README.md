@@ -119,7 +119,7 @@ PendingButton(
 
 ## Principle
 
-Inspired from Riverpod [doc](https://riverpod.dev/docs/essentials/side_effects?query=1#going-further-showing-a-spinner--error-handling)
+Inspired from Riverpod [doc](https://riverpod.dev/docs/essentials/side_effects#going-further-showing-a-spinner--error-handling)
 
 ```dart
 Future<void>? pending;
@@ -153,6 +153,10 @@ Widget build(BuildContext context) {
 }
 
 ```
+
+## Real example
+
+For a real example please check authentification example: https://github.com/MoezAyadiDev/pending_button/blob/main/example/lib/main_auth.dart
 
 ## Contributing
 
