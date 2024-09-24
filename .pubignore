@@ -1,0 +1,10 @@
+.dart_tool/
+.idea/
+/pubspec.lock
+.gitignore
+/example/.dart_tool/
+/example/.idea/
+/example/pub-cache/
+/example/pub/
+/example/build/
+/example/.gitignore
