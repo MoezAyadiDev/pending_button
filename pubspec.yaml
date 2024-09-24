@@ -1,10 +1,15 @@
 name: pending_button
 description: "Button with asynchrnonise state"
 version: 0.0.1
-homepage:
+homepage: https://github.com/MoezAyadiDev/pending_button
+repository: https://github.com/MoezAyadiDev/pending_button
+screenshots:
+  - description: "different type of button pending"
+    path: screenshots\pending_button.gif
 
 environment:
-  sdk: ">=3.3.0 <4.0.0"
+  # sdk: ">=3.3.0 <4.0.0"
+  sdk: ^3.5.3
   flutter: ">=3.3.0"
 
 dependencies:
@@ -14,6 +19,6 @@ dependencies:
 dev_dependencies:
   flutter_test:
     sdk: flutter
-  flutter_lints: ^3.0.0
+  flutter_lints: ^4.0.0
 
 flutter:
