@@ -124,7 +124,7 @@ class _EditTextFieldState extends State<EditTextField> {
               hintText: widget.hint,
               labelText: widget.label,
               hintStyle: const TextStyle(fontSize: 13),
-              fillColor: context.themeColor.background.withOpacity(0.3),
+              fillColor: context.themeColor.surface.withOpacity(0.3),
               contentPadding: EdgeInsets.symmetric(
                 horizontal: 5,
                 vertical: (widget.maxLine != null) ? 10 : 0,

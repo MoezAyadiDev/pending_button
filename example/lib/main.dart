@@ -59,7 +59,7 @@ class HomePage extends StatelessWidget {
             ),
             const SizedBox(height: 10),
             PendingButton.outlined(
-              asynFunction: futureFunction,
+              asynFunction: futureErrorFunction,
               child: const Text('Oulined Success'),
             ),
             const SizedBox(height: 10),
