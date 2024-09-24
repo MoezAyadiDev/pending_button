@@ -63,6 +63,29 @@ class PendingButton extends StatelessWidget {
   //default 300 milleseconde
   final Duration? animationDuration;
 
+  /// Creates a Filled Pending button widget that indicate the different state of the asynchronous action.
+  ///
+  /// The `child` is a Widget.
+  ///
+  ///The widget provide 4 function as param but only `asynFunction` is required
+  ///
+  ///-`asynFunction` is a future function will be fire on button pressed
+  ///
+  ///-`onSuccess` will be executed if the future of asyncFunction is finished
+  ///with success. Return the result of asyncFunction
+  ///
+  ///-`onError` will be executed if the future of asyncFunction is finished
+  ///with error. Return the Exception
+  ///
+  ///-`beforeFunction` A function that must return boolean will be executed before asynFunction
+  ///
+  ///`width` and `height` to resize the widget, by default small padding
+  ///
+  ///`backgroundColor`, `foregroundColor` and `borderColor` to change idle color
+  ///
+  ///`successColor` and `errorColor`to change state color
+  ///
+  ///`animationDuration` is the animation duration
   const PendingButton({
     super.key,
     required this.child,
@@ -81,6 +104,27 @@ class PendingButton extends StatelessWidget {
     this.onSuccess,
   }) : buttonType = ButtonType.normal;
 
+  /// Creates a Icon Pending button widget that indicate the different state of the asynchronous action.
+  ///
+  /// The `child` is an Icon widget.
+  ///
+  ///The widget provide 4 function as param but only `asynFunction` is required
+  ///
+  ///-`asynFunction` is a future function will be fire on button pressed
+  ///
+  ///-`onSuccess` will be executed if the future of asyncFunction is finished
+  ///with success. Return the result of asyncFunction
+  ///
+  ///-`onError` will be executed if the future of asyncFunction is finished
+  ///with error. Return the Exception
+  ///
+  ///-`beforeFunction` A function that must return boolean will be executed before asynFunction
+  ///
+  ///`width` and `height` to resize the widget, by default small padding
+  ///
+  ///`successColor` and `errorColor`to change state color
+  ///
+  ///`animationDuration` is the animation duration
   const PendingButton.icon({
     super.key,
     required Icon this.child,
@@ -100,6 +144,29 @@ class PendingButton extends StatelessWidget {
         borderColor = null,
         borderRadius = 40;
 
+  /// Creates a oulined Pending button widget that indicate the different state of the asynchronous action.
+  ///
+  /// The `child` is a Widget.
+  ///
+  ///The widget provide 4 function as param but only `asynFunction` is required
+  ///
+  ///-`asynFunction` is a future function will be fire on button pressed
+  ///
+  ///-`onSuccess` will be executed if the future of asyncFunction is finished
+  ///with success. Return the result of asyncFunction
+  ///
+  ///-`onError` will be executed if the future of asyncFunction is finished
+  ///with error. Return the Exception
+  ///
+  ///-`beforeFunction` A function that must return boolean will be executed before asynFunction
+  ///
+  ///`width` and `height` to resize the widget, by default small padding
+  ///
+  ///`foregroundColor` and `borderColor` to change idle color
+  ///
+  ///`successColor` and `errorColor`to change state color
+  ///
+  ///`animationDuration` is the animation duration
   const PendingButton.outlined({
     super.key,
     required this.child,
@@ -118,6 +185,29 @@ class PendingButton extends StatelessWidget {
   })  : buttonType = ButtonType.outline,
         backgroundColor = null;
 
+  /// Creates a Text Pending button widget that indicate the different state of the asynchronous action.
+  ///
+  /// The `child` is a Widget.
+  ///
+  ///The widget provide 4 function as param but only `asynFunction` is required
+  ///
+  ///-`asynFunction` is a future function will be fire on button pressed
+  ///
+  ///-`onSuccess` will be executed if the future of asyncFunction is finished
+  ///with success. Return the result of asyncFunction
+  ///
+  ///-`onError` will be executed if the future of asyncFunction is finished
+  ///with error. Return the Exception
+  ///
+  ///-`beforeFunction` A function that must return boolean will be executed before asynFunction
+  ///
+  ///`width` and `height` to resize the widget, by default small padding
+  ///
+  ///`foregroundColor` to change idle color
+  ///
+  ///`successColor` and `errorColor`to change state color
+  ///
+  ///`animationDuration` is the animation duration
   const PendingButton.text({
     super.key,
     required this.child,
