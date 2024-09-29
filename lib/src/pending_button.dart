@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/rendering.dart';
 import 'package:pending_button/src/core/extensions.dart';
 import 'package:pending_button/src/core/helper.dart';
 import 'package:pending_button/src/core/models.dart';

@@ -1,4 +1,3 @@
-import 'package:example/main_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:pending_button/pending_button.dart';
 
