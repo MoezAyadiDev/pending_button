@@ -1,3 +1,4 @@
+import 'package:example/main_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:pending_button/pending_button.dart';
 
@@ -5,24 +6,77 @@ void main() {
   runApp(const MyApp());
 }
 
-class MyApp extends StatelessWidget {
+class MyApp extends StatefulWidget {
   const MyApp({super.key});
+
+  @override
+  State<MyApp> createState() => _MyAppState();
+}
+
+class _MyAppState extends State<MyApp> {
+  late ThemeMode theme;
+
+  @override
+  void initState() {
+    super.initState();
+    theme = ThemeMode.light;
+  }
+
   @override
   Widget build(BuildContext context) {
-    return const MaterialApp(
+    return MaterialApp(
       title: 'Pending Button Demo',
-      home: HomePage(),
+      themeMode: theme,
+      theme: ThemeData(
+        colorScheme: ColorScheme.fromSeed(
+          seedColor: const Color(0xFF00b266),
+          brightness: Brightness.light,
+        ),
+        useMaterial3: true,
+      ),
+      darkTheme: ThemeData(
+        colorScheme: ColorScheme.fromSeed(
+          seedColor: const Color(0xFF00b266),
+          brightness: Brightness.dark,
+        ),
+        useMaterial3: true,
+      ),
+      home: HomePage(
+        isDark: theme == ThemeMode.dark,
+        callback: () {
+          setState(() {
+            theme =
+                (theme == ThemeMode.dark) ? ThemeMode.light : ThemeMode.dark;
+          });
+        },
+      ),
     );
   }
 }
 
 class HomePage extends StatelessWidget {
-  const HomePage({super.key});
+  final bool isDark;
+  final VoidCallback callback;
+  const HomePage({
+    super.key,
+    required this.isDark,
+    required this.callback,
+  });
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         title: const Text('Pending button'),
+        actions: [
+          IconButton(
+            icon: Icon(
+              isDark ? Icons.light_mode_rounded : Icons.dark_mode_rounded,
+            ),
+            tooltip: 'Theme',
+            onPressed: callback,
+          ),
+          const SizedBox(width: 30),
+        ],
       ),
       body: Center(
         child: Column(
@@ -49,8 +103,21 @@ class HomePage extends StatelessWidget {
             PendingButton(
               asynFunction: futureErrorFunction,
               child: const Text('Short'),
-              // width: 200,
-              // height: 50,
+            ),
+            const SizedBox(height: 10),
+            PendingButton(
+              asynFunction: futureErrorFunction,
+              child: Row(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  Icon(
+                    Icons.login,
+                    color: Theme.of(context).colorScheme.onPrimary,
+                  ),
+                  const SizedBox(width: 20),
+                  const Text('Connexion'),
+                ],
+              ),
             ),
             const SizedBox(height: 10),
             PendingButton.outlined(
