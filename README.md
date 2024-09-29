@@ -38,7 +38,7 @@ Future<bool> myFunction() =>
     );
 ```
 
-Different type of button is suppreted
+Different type of button is supporeted
 
 - PendingButton
 - PendingButton.outlined

@@ -77,9 +77,10 @@ class _AuthPageState extends State<AuthPage> {
                 width: 400,
                 padding: const EdgeInsets.fromLTRB(40, 40, 40, 20),
                 decoration: BoxDecoration(
-                    border: Border.all(color: Colors.grey[200]!),
-                    color: Colors.white,
-                    borderRadius: BorderRadius.circular(10)),
+                  border: Border.all(color: Colors.grey[200]!),
+                  color: Colors.white,
+                  borderRadius: BorderRadius.circular(10),
+                ),
                 child: Column(
                   children: [
                     TextFormFieldWidget(

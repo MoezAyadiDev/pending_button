@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/rendering.dart';
 import 'package:pending_button/src/core/extensions.dart';
 import 'package:pending_button/src/core/helper.dart';
 import 'package:pending_button/src/core/models.dart';
@@ -256,6 +257,7 @@ class PendingButton extends StatelessWidget {
     //         size: (child as Icon).size,
     //       )
     //     : null;
+
     return ButtonWidget(
       onError: onError,
       asynFunction: asynFunction,
@@ -272,7 +274,16 @@ class PendingButton extends StatelessWidget {
       errorColor: colorError,
       animationDuration: animationDuration ?? const Duration(milliseconds: 200),
       //child: buttonType == ButtonType.icon ? newIcon! : child,
-      child: child,
+      child: Material(
+        textStyle: context.themeText.bodyMedium!.copyWith(
+          color: colorForeground,
+        ),
+        color: Colors.transparent,
+        child: SingleChildScrollView(
+          scrollDirection: Axis.horizontal,
+          child: child,
+        ),
+      ),
     );
   }
 }
