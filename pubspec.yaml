@@ -1,15 +1,15 @@
 name: pending_button
 description: "Button peding is an animated button with asynchrnonise state (Idle, Pending, Error, Success)"
-version: 0.0.4
+version: 0.0.5
 homepage: https://github.com/MoezAyadiDev/pending_button
 repository: https://github.com/MoezAyadiDev/pending_button
 screenshots:
   - description: "Screenshot for different type of button pending"
-    path: screenshots\pending_image.png
+    path: screenshots\button_pending.gif
 
 environment:
-  sdk: ^3.5.3
-  flutter: ">=3.3.0"
+  sdk: ^3.5.4
+  # flutter: ">=3.3.0"
 
 dependencies:
   flutter:
@@ -18,4 +18,4 @@ dependencies:
 dev_dependencies:
   flutter_test:
     sdk: flutter
-  flutter_lints: ^4.0.0
+  flutter_lints: ^5.0.0
