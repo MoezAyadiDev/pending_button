@@ -1,3 +1,10 @@
+## 0.0.6
+
+- Fix : inital child position
+
+- Feat : Add theme args due to multiple build by using Theme.of(context)
+  issue : https://github.com/flutter/flutter/issues/89127
+
 ## 0.0.5
 
 Update dependancy

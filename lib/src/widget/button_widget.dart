@@ -17,6 +17,8 @@ class ButtonWidget extends StatefulWidget {
   final Color errorColor;
   final ButtonType buttonType;
   final Duration animationDuration;
+  final Color onCheckColor;
+  final TextStyle mediumTheme;
   final Widget child;
   const ButtonWidget({
     super.key,
@@ -34,6 +36,8 @@ class ButtonWidget extends StatefulWidget {
     required this.succesColor,
     required this.errorColor,
     required this.animationDuration,
+    required this.onCheckColor,
+    required this.mediumTheme,
     required this.child,
   });
 
@@ -106,6 +110,8 @@ class _ButtonWidgetState extends State<ButtonWidget> {
           succesColor: widget.succesColor,
           errorColor: widget.errorColor,
           animationDuration: widget.animationDuration,
+          onCheckColor: widget.onCheckColor,
+          mediumTheme: widget.mediumTheme,
           onPressed: () async {
             if (widget.beforeFunction != null) {
               final beforResult = await widget.beforeFunction!();

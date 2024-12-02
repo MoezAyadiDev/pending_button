@@ -63,6 +63,11 @@ class PendingButton extends StatelessWidget {
   //default 300 milleseconde
   final Duration? animationDuration;
 
+  ///Application Theme
+  ///Avoid unnecessary multiple build due to Flutter behaviour on Theme.of(context)
+  ///flutter issue https://github.com/flutter/flutter/issues/89127
+  final ThemeData? theme;
+
   /// Creates a Filled Pending button widget that indicate the different state of the asynchronous action.
   ///
   /// The `child` is a Widget.
@@ -102,6 +107,7 @@ class PendingButton extends StatelessWidget {
     this.borderRadius = 10.0,
     this.animationDuration,
     this.onSuccess,
+    this.theme,
   }) : buttonType = ButtonType.normal;
 
   /// Creates a Icon Pending button widget that indicate the different state of the asynchronous action.
@@ -138,6 +144,7 @@ class PendingButton extends StatelessWidget {
     Color? iconColor,
     this.animationDuration,
     this.onSuccess,
+    this.theme,
   })  : buttonType = ButtonType.icon,
         foregroundColor = iconColor,
         backgroundColor = null,
@@ -182,6 +189,7 @@ class PendingButton extends StatelessWidget {
     this.borderRadius = 10.0,
     this.animationDuration,
     this.onSuccess,
+    this.theme,
   })  : buttonType = ButtonType.outline,
         backgroundColor = null;
 
@@ -221,6 +229,7 @@ class PendingButton extends StatelessWidget {
     this.foregroundColor,
     this.animationDuration,
     this.onSuccess,
+    this.theme,
   })  : buttonType = ButtonType.text,
         borderColor = null,
         backgroundColor = null,
@@ -228,27 +237,31 @@ class PendingButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    //Using the theme from Application
+    ThemeData appTheme = theme ?? Theme.of(context);
+    ColorScheme colorScheme = appTheme.colorScheme;
+
     Color? colorBackground = backgroundColor ??
         buttonType.mayBeOr<Color?>(
-          normal: () => context.themeColor.primary,
+          normal: () => colorScheme.primary,
           or: () => null,
         );
     Color colorForeground = foregroundColor ??
         buttonType.when<Color>(
-          normal: () => context.themeColor.onPrimary,
-          text: () => context.themeColor.primary,
-          icon: () => context.themeColor.primary,
-          outline: () => context.themeColor.primary,
+          normal: () => colorScheme.onPrimary,
+          text: () => colorScheme.primary,
+          icon: () => colorScheme.primary,
+          outline: () => colorScheme.primary,
         );
     Color? colorBorder = borderColor ??
         buttonType.when<Color?>(
           normal: () => darken(colorBackground),
           text: () => null,
           icon: () => null,
-          outline: () => context.themeColor.primary,
+          outline: () => colorScheme.primary,
         );
     Color colorSucess = successColor ?? Colors.green[600]!;
-    Color colorError = errorColor ?? context.themeColor.error;
+    Color colorError = errorColor ?? colorScheme.error;
     // Icon? newIcon = buttonType == ButtonType.icon
     //     ? Icon(
     //         (child as Icon).icon,
@@ -271,10 +284,14 @@ class PendingButton extends StatelessWidget {
       buttonType: buttonType,
       succesColor: colorSucess,
       errorColor: colorError,
+      onCheckColor: colorScheme.onTertiary,
       animationDuration: animationDuration ?? const Duration(milliseconds: 200),
+      mediumTheme: appTheme.textTheme.bodyMedium!.copyWith(
+        color: colorForeground,
+      ),
       //child: buttonType == ButtonType.icon ? newIcon! : child,
       child: Material(
-        textStyle: context.themeText.bodyMedium!.copyWith(
+        textStyle: appTheme.textTheme.bodyMedium!.copyWith(
           color: colorForeground,
         ),
         color: Colors.transparent,

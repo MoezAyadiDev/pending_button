@@ -1,11 +1,11 @@
 name: pending_button
 description: "Button peding is an animated button with asynchrnonise state (Idle, Pending, Error, Success)"
-version: 0.0.5
+version: 0.0.6
 homepage: https://github.com/MoezAyadiDev/pending_button
 repository: https://github.com/MoezAyadiDev/pending_button
 screenshots:
   - description: "Screenshot for different type of button pending"
-    path: screenshots\button_pending.gif
+    path: screenshots/button_pending.gif
 
 environment:
   sdk: ^3.5.4

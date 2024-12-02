@@ -17,6 +17,8 @@ class ButtonAnimated extends StatefulWidget {
   final Color succesColor;
   final Color errorColor;
   final Duration animationDuration;
+  final Color onCheckColor;
+  final TextStyle mediumTheme;
   const ButtonAnimated({
     super.key,
     required this.height,
@@ -32,6 +34,8 @@ class ButtonAnimated extends StatefulWidget {
     required this.succesColor,
     required this.errorColor,
     required this.animationDuration,
+    required this.onCheckColor,
+    required this.mediumTheme,
   });
 
   @override
@@ -89,9 +93,9 @@ class _ButtonAnimatedState extends State<ButtonAnimated>
         borderColor: widget.borderColor,
         sucessColor: widget.succesColor,
         errorColor: widget.errorColor,
-        onCheckColor: context.themeColor.onTertiary,
+        onCheckColor: widget.onCheckColor,
         width: size.width,
-        height: size.height - 5,
+        height: size.height,
         borderRadius: widget.borderRadius,
         buttonType: widget.buttonType,
         state: ButtonState.idle,
@@ -205,57 +209,61 @@ class _ButtonAnimatedState extends State<ButtonAnimated>
                     .has([ButtonState.error, ButtonState.success]))
                 ? _animateBounce.value
                 : 0;
-        return Container(
+        return SizedBox(
           height: buttonDecore.height + 5,
-          width: buttonDecore.width,
-          margin: const EdgeInsets.symmetric(vertical: 2.5),
-          child: Center(
-            child: Material(
-              textStyle: context.themeText.bodyMedium!
-                  .copyWith(color: buttonDecore.foregroundColor),
-              borderRadius: BorderRadius.circular(_animateBorederRadius.value),
-              color: Colors.transparent,
-              child: InkWell(
-                customBorder: RoundedRectangleBorder(
-                  borderRadius:
-                      BorderRadius.circular(_animateBorederRadius.value),
-                ),
-                hoverColor: lighten(buttonDecore.backgroundColor),
-                onTap: currentState[0].state == ButtonState.idle
-                    ? widget.onPressed
-                    : null,
-                child: Ink(
-                  height: buttonDecore.height + bounce,
-                  width: _animateWidth.value + bounce,
-                  decoration: BoxDecoration(
-                    color: colorBack,
+          width: buttonDecore.width + 5,
+          child: Stack(
+            alignment: AlignmentDirectional.center,
+            fit: StackFit.loose,
+            children: [
+              Material(
+                textStyle: widget.mediumTheme
+                    .copyWith(color: buttonDecore.foregroundColor),
+                borderRadius:
+                    BorderRadius.circular(_animateBorederRadius.value),
+                color: Colors.transparent,
+                child: InkWell(
+                  customBorder: RoundedRectangleBorder(
                     borderRadius:
                         BorderRadius.circular(_animateBorederRadius.value),
-                    border: colorBorder != null
-                        ? Border.all(color: colorBorder)
-                        : null,
                   ),
-                  child: Stack(
-                    fit: StackFit.loose,
-                    clipBehavior: Clip.none,
-                    children: [
-                      Opacity(
-                        opacity: _animateOpacityCheck.value,
-                        child: checkWidget,
-                      ),
-                      Opacity(
-                        opacity: _animateOpacityLoading.value,
-                        child: _widgetLoading,
-                      ),
-                      Opacity(
-                        opacity: _animateOpacityMain.value,
-                        child: Center(child: _widgetMain),
-                      ),
-                    ],
+                  hoverColor: lighten(buttonDecore.backgroundColor),
+                  onTap: currentState[0].state == ButtonState.idle
+                      ? widget.onPressed
+                      : null,
+                  child: Ink(
+                    height: buttonDecore.height + bounce,
+                    width: _animateWidth.value + bounce,
+                    decoration: BoxDecoration(
+                      color: colorBack,
+                      borderRadius:
+                          BorderRadius.circular(_animateBorederRadius.value),
+                      border: colorBorder != null
+                          ? Border.all(color: colorBorder)
+                          : null,
+                    ),
+                    child: Stack(
+                      fit: StackFit.loose,
+                      clipBehavior: Clip.none,
+                      children: [
+                        Opacity(
+                          opacity: _animateOpacityCheck.value,
+                          child: checkWidget,
+                        ),
+                        Opacity(
+                          opacity: _animateOpacityLoading.value,
+                          child: _widgetLoading,
+                        ),
+                        Opacity(
+                          opacity: _animateOpacityMain.value,
+                          child: Center(child: _widgetMain),
+                        ),
+                      ],
+                    ),
                   ),
                 ),
               ),
-            ),
+            ],
           ),
         );
       },
@@ -284,7 +292,7 @@ class _ButtonAnimatedState extends State<ButtonAnimated>
         child: widget.buttonType.when(
           normal: () => Icon(
             Icons.check,
-            color: context.themeColor.onTertiary,
+            color: widget.onCheckColor,
           ),
           text: () => Icon(
             Icons.check,
@@ -300,6 +308,7 @@ class _ButtonAnimatedState extends State<ButtonAnimated>
           ),
         ),
       );
+
   Widget get _widgetError => Align(
         alignment: Alignment.center,
         child: SizedBox(
@@ -308,7 +317,7 @@ class _ButtonAnimatedState extends State<ButtonAnimated>
           child: widget.buttonType.when(
             normal: () => Icon(
               Icons.priority_high_rounded,
-              color: context.themeColor.onTertiary,
+              color: widget.onCheckColor,
             ),
             text: () => Icon(
               Icons.priority_high_rounded,
@@ -325,22 +334,29 @@ class _ButtonAnimatedState extends State<ButtonAnimated>
           ),
         ),
       );
+
   Widget initWidget() => Material(
-        textStyle: context.themeText.bodyMedium!
-            .copyWith(color: widget.foregroundColor),
-        child: Container(
-          decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(widget.borderRadius),
-            color: widget.backgroundColor,
-            border: widget.borderColor != null
-                ? Border.all(color: widget.borderColor!)
-                : null,
+        textStyle: widget.mediumTheme.copyWith(color: widget.foregroundColor),
+        child: Padding(
+          padding: const EdgeInsets.symmetric(vertical: 2.5, horizontal: 2.5),
+          child: Container(
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(widget.borderRadius),
+              color: widget.backgroundColor,
+              border: widget.borderColor != null
+                  ? Border.all(color: widget.borderColor!)
+                  : null,
+            ),
+            key: childKey,
+            padding: const EdgeInsets.symmetric(vertical: 1),
+            width: widget.width,
+            height: widget.height,
+            child: Stack(
+              fit: StackFit.loose,
+              alignment: AlignmentDirectional.center,
+              children: [_widgetMain],
+            ),
           ),
-          key: childKey,
-          padding: const EdgeInsets.symmetric(vertical: 2.5),
-          width: widget.width,
-          height: widget.height,
-          child: _widgetMain,
         ),
       );
 
