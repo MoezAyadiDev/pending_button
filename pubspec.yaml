@@ -6,6 +6,10 @@ repository: https://github.com/MoezAyadiDev/pending_button
 screenshots:
   - description: "Screenshot for different type of button pending"
     path: screenshots/button_pending.gif
+topics:
+  - button
+  - loading
+  - buttonstate
 
 environment:
   sdk: ^3.5.4
