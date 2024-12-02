@@ -9,7 +9,7 @@ Button pending is a basic Button indicate the different state of the asynchronou
 Add `pending_button` to your `pubspec.yaml` as a dependacy
 
 ```yaml
-dependencies: pending_button:0.0.4
+dependencies: pending_button:0.0.6
 ```
 
 ## Usage
