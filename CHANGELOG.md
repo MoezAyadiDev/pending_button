@@ -1,3 +1,13 @@
+## 0.0.8
+
+- Update : dart sdk 3.6.0
+- Fix : snapshat.data has void value
+- Update : on color withOpacity to withValue(alpaha : )
+
+## 0.0.7
+
+- Doc : update doc
+
 ## 0.0.6
 
 - Fix : inital child position
