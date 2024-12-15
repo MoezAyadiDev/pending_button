@@ -49,7 +49,7 @@ class _ButtonWidgetState extends State<ButtonWidget> {
   Future<void>? pending;
   @override
   Widget build(BuildContext context) {
-    return FutureBuilder(
+    return FutureBuilder<dynamic>(
       future: pending,
       builder: (context, snapshot) {
         late ButtonState buttonState;
