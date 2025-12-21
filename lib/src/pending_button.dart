@@ -2,7 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:pending_button/src/core/extensions.dart';
 import 'package:pending_button/src/core/helper.dart';
 import 'package:pending_button/src/core/models.dart';
-import 'package:pending_button/src/widget/button_widget.dart';
+// import 'pending_button_controller.dart';
+
+part '../src/widget/button_widget.dart';
+part '../src/widget/button_animated.dart';
+part 'pending_button_controller.dart';
 
 class PendingButton extends StatelessWidget {
   final Widget child;
@@ -68,6 +72,9 @@ class PendingButton extends StatelessWidget {
   ///flutter issue https://github.com/flutter/flutter/issues/89127
   final ThemeData? theme;
 
+  ///An external signal that tells the button to run
+  final PendingButtonController? autoRun;
+
   /// Creates a Filled Pending button widget that indicate the different state of the asynchronous action.
   ///
   /// The `child` is a Widget.
@@ -108,6 +115,7 @@ class PendingButton extends StatelessWidget {
     this.animationDuration,
     this.onSuccess,
     this.theme,
+    this.autoRun,
   }) : buttonType = ButtonType.normal;
 
   /// Creates a Icon Pending button widget that indicate the different state of the asynchronous action.
@@ -145,6 +153,7 @@ class PendingButton extends StatelessWidget {
     this.animationDuration,
     this.onSuccess,
     this.theme,
+    this.autoRun,
   })  : buttonType = ButtonType.icon,
         foregroundColor = iconColor,
         backgroundColor = null,
@@ -190,6 +199,7 @@ class PendingButton extends StatelessWidget {
     this.animationDuration,
     this.onSuccess,
     this.theme,
+    this.autoRun,
   })  : buttonType = ButtonType.outline,
         backgroundColor = null;
 
@@ -230,6 +240,7 @@ class PendingButton extends StatelessWidget {
     this.animationDuration,
     this.onSuccess,
     this.theme,
+    this.autoRun,
   })  : buttonType = ButtonType.text,
         borderColor = null,
         backgroundColor = null,
@@ -262,15 +273,8 @@ class PendingButton extends StatelessWidget {
         );
     Color colorSucess = successColor ?? Colors.green[600]!;
     Color colorError = errorColor ?? colorScheme.error;
-    // Icon? newIcon = buttonType == ButtonType.icon
-    //     ? Icon(
-    //         (child as Icon).icon,
-    //         color: context.themeColor.primary,
-    //         size: (child as Icon).size,
-    //       )
-    //     : null;
 
-    return ButtonWidget(
+    return _ButtonWidget(
       onError: onError,
       asynFunction: asynFunction,
       beforeFunction: beforeFunction,
@@ -289,7 +293,7 @@ class PendingButton extends StatelessWidget {
       mediumTheme: appTheme.textTheme.bodyMedium!.copyWith(
         color: colorForeground,
       ),
-      //child: buttonType == ButtonType.icon ? newIcon! : child,
+      autoRun: autoRun,
       child: Material(
         textStyle: appTheme.textTheme.bodyMedium!.copyWith(
           color: colorForeground,
@@ -303,3 +307,10 @@ class PendingButton extends StatelessWidget {
     );
   }
 }
+
+// class PendingButtonController {
+//   // late VoidCallback? _run;
+//   void run() {
+//     //_run?.call();
+//   }
+// }

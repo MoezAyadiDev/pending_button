@@ -1,9 +1,6 @@
-import 'package:flutter/material.dart';
-import 'package:pending_button/src/core/extensions.dart';
-import 'package:pending_button/src/core/helper.dart';
-import 'package:pending_button/src/core/models.dart';
+part of '../pending_button.dart';
 
-class ButtonAnimated extends StatefulWidget {
+class _ButtonAnimated extends StatefulWidget {
   final double? height;
   final double? width;
   final double borderRadius;
@@ -19,8 +16,7 @@ class ButtonAnimated extends StatefulWidget {
   final Duration animationDuration;
   final Color onCheckColor;
   final TextStyle mediumTheme;
-  const ButtonAnimated({
-    super.key,
+  const _ButtonAnimated({
     required this.height,
     required this.width,
     required this.borderRadius,
@@ -39,10 +35,10 @@ class ButtonAnimated extends StatefulWidget {
   });
 
   @override
-  State<ButtonAnimated> createState() => _ButtonAnimatedState();
+  State<_ButtonAnimated> createState() => _ButtonAnimatedState();
 }
 
-class _ButtonAnimatedState extends State<ButtonAnimated>
+class _ButtonAnimatedState extends State<_ButtonAnimated>
     with SingleTickerProviderStateMixin {
   List<ButtonDecoration> currentState = [];
   late final ButtonDecoration buttonDecore;
@@ -115,7 +111,7 @@ class _ButtonAnimatedState extends State<ButtonAnimated>
   }
 
   @override
-  void didUpdateWidget(covariant ButtonAnimated oldWidget) {
+  void didUpdateWidget(covariant _ButtonAnimated oldWidget) {
     if (currentState.last.state != widget.buttonState) {
       currentState.add(
         buttonDecore.animate(widget.buttonState),
@@ -135,7 +131,7 @@ class _ButtonAnimatedState extends State<ButtonAnimated>
     super.didUpdateWidget(oldWidget);
   }
 
-  initAnimation(ButtonDecoration etat1, ButtonDecoration etat2) {
+  void initAnimation(ButtonDecoration etat1, ButtonDecoration etat2) {
     _animateWidth = Tween<double>(begin: etat1.width, end: etat2.width).animate(
       CurvedAnimation(
         parent: _animationController,

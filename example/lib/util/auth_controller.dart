@@ -9,11 +9,11 @@ class AuthController {
       : _login = '',
         _password = '';
 
-  loginChanged(String value) {
+  void loginChanged(String value) {
     _login = value;
   }
 
-  passwordChanged(String value) {
+  void passwordChanged(String value) {
     _password = value;
   }
 
@@ -33,7 +33,7 @@ class AuthController {
     throw AuthFailure.userNotFound(response['error']);
   }
 
-  signUp() {}
+  void signUp() {}
 
   Future<UserModel> signinFacebook() async {
     final response = await _db.signin({'login': 'flutter', 'password': '1234'});

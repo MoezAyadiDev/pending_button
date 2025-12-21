@@ -1,10 +1,4 @@
-import 'package:flutter/material.dart';
 import 'package:pending_button/src/core/models.dart';
-
-extension Contexts on BuildContext {
-  // TextTheme get themeText => Theme.of(this).textTheme;
-  // ColorScheme get themeColor => Theme.of(this).colorScheme;
-}
 
 extension StatusWhen on ButtonType {
   R when<R>({
