@@ -171,7 +171,7 @@ class _AuthPageState extends State<AuthPage> {
     );
   }
 
-  _onError(Exception error) {
+  void _onError(Exception error) {
     String message = error.toString();
     if (error is Failures) {
       message = error.message;
@@ -183,14 +183,14 @@ class _AuthPageState extends State<AuthPage> {
     );
   }
 
-  _onSuccess(BuildContext context, UserModel user) {
+  void _onSuccess(BuildContext context, UserModel user) {
     Navigator.push(
       context,
       MaterialPageRoute(builder: (context) => HomeScreen(user: user)),
     );
   }
 
-  _onResetPasswordSuccess(BuildContext context, String password) {
+  void _onResetPasswordSuccess(BuildContext context, String password) {
     ScaffoldMessenger.of(context).showSnackBar(
       SnackBar(
         content: Text('The password is $password'),

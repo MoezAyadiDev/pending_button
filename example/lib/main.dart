@@ -56,6 +56,7 @@ class _MyAppState extends State<MyApp> {
 class HomePage extends StatelessWidget {
   final bool isDark;
   final VoidCallback callback;
+
   const HomePage({
     super.key,
     required this.isDark,
@@ -63,6 +64,7 @@ class HomePage extends StatelessWidget {
   });
   @override
   Widget build(BuildContext context) {
+    PendingButtonController autoRun = PendingButtonController();
     return Scaffold(
       appBar: AppBar(
         title: const Text('Pending button'),
@@ -77,92 +79,120 @@ class HomePage extends StatelessWidget {
           const SizedBox(width: 30),
         ],
       ),
-      body: Center(
-        child: Column(
-          children: [
-            PendingButton(
-              asynFunction: futureFunction,
-              width: 200,
-              borderRadius: 15.0,
-              backgroundColor: Colors.blueAccent,
-              onSuccess: (value) {
-                debugPrint(value.toString());
-              },
-              child: const Text('Filled succes'),
-            ),
-            PendingButton(
-              asynFunction: () {
-                return futureFunction2(1, 1, 1, 1, 1, 1, 1, 1, 1);
-              },
-              width: 200,
-              // height: 50,
-              child: const Text('Filled with args'),
-            ),
-            const SizedBox(height: 10),
-            PendingButton(
-              asynFunction: futureErrorFunction,
-              child: const Text('Short'),
-            ),
-            const SizedBox(height: 10),
-            PendingButton(
-              asynFunction: futureErrorFunction,
-              child: Row(
-                mainAxisSize: MainAxisSize.min,
-                children: [
-                  Icon(
-                    Icons.login,
-                    color: Theme.of(context).colorScheme.onPrimary,
-                  ),
-                  const SizedBox(width: 20),
-                  const Text('Connexion'),
-                ],
+      body: SingleChildScrollView(
+        child: Center(
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+              PendingButton(
+                asynFunction: futureFunction,
+                width: 200,
+                borderRadius: 15.0,
+                backgroundColor: Colors.blueAccent,
+                onSuccess: (value) {
+                  debugPrint(value.toString());
+                },
+                child: const Text('Filled succes'),
               ),
-            ),
-            const SizedBox(height: 10),
-            PendingButton.outlined(
-              asynFunction: futureErrorFunction,
-              child: const Text('Oulined error'),
-            ),
-            const SizedBox(height: 10),
-            PendingButton.outlined(
-              asynFunction: futureErrorFunction,
-              child: const Text('Oulined Success'),
-            ),
-            const SizedBox(height: 10),
-            PendingButton.text(
-              asynFunction: futureFunction,
-              child: const Text('Text success'),
-            ),
-            const SizedBox(height: 10),
-            PendingButton.text(
-              asynFunction: futureErrorFunction,
-              child: const Text('wrong password'),
-            ),
-            const SizedBox(height: 10),
-            PendingButton.icon(
-              asynFunction: futureFunction,
-              child: const Icon(Icons.add),
-            ),
-            const SizedBox(height: 10),
-            PendingButton.icon(
-              asynFunction: myFunction,
-              onError: (Exception error) {
-                ScaffoldMessenger.of(context).showSnackBar(
-                  SnackBar(
-                    content: Text(error.toString()),
-                  ),
-                );
-              },
-              onSuccess: (result) {},
-              child: const Icon(Icons.delete),
-            ),
-            PendingButton.icon(
-              asynFunction: () {
-                debugPrint('hello');
-              },
-              child: const Icon(Icons.add),
-            ),
-          ],
+              PendingButton(
+                asynFunction: () {
+                  return futureFunction2(1, 1, 1, 1, 1, 1, 1, 1, 1);
+                },
+                width: 200,
+                // height: 50,
+                child: const Text('Filled with args'),
+              ),
+              const SizedBox(height: 10),
+              PendingButton(
+                asynFunction: futureErrorFunction,
+                child: const Text('Short'),
+              ),
+              const SizedBox(height: 10),
+              PendingButton(
+                asynFunction: futureErrorFunction,
+                child: Row(
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    Icon(
+                      Icons.login,
+                      color: Theme.of(context).colorScheme.onPrimary,
+                    ),
+                    const SizedBox(width: 20),
+                    const Text('Connexion'),
+                  ],
+                ),
+              ),
+              const SizedBox(height: 10),
+              PendingButton.outlined(
+                asynFunction: futureErrorFunction,
+                child: const Text('Oulined error'),
+              ),
+              const SizedBox(height: 10),
+              PendingButton.outlined(
+                asynFunction: futureErrorFunction,
+                child: const Text('Oulined Success'),
+              ),
+              const SizedBox(height: 10),
+              PendingButton.text(
+                asynFunction: futureFunction,
+                child: const Text('Text success'),
+              ),
+              const SizedBox(height: 10),
+              PendingButton.text(
+                asynFunction: futureErrorFunction,
+                child: const Text('wrong password'),
+              ),
+              const SizedBox(height: 10),
+              PendingButton.icon(
+                asynFunction: futureFunction,
+                child: const Icon(Icons.add),
+              ),
+              const SizedBox(height: 10),
+              PendingButton.icon(
+                asynFunction: myFunction,
+                onError: (Exception error) {
+                  ScaffoldMessenger.of(context).showSnackBar(
+                    SnackBar(
+                      content: Text(error.toString()),
+                    ),
+                  );
+                },
+                onSuccess: (result) {},
+                child: const Icon(Icons.delete),
+              ),
+              PendingButton.icon(
+                asynFunction: () {
+                  debugPrint('hello');
+                },
+                child: const Icon(Icons.add),
+              ),
+              PendingButton(
+                asynFunction: futureErrorFunction,
+                autoRun: autoRun,
+                child: const Text('Short'),
+              ),
+              IconButton(
+                onPressed: () {
+                  autoRun.run();
+                },
+                icon: Icon(Icons.play_arrow_outlined),
+              ),
+              PendingButton(
+                asynFunction: () {
+                  return true;
+                },
+                onSuccess: (data) {
+                  ScaffoldMessenger.of(context).showSnackBar(
+                    SnackBar(
+                      content: Text(data.toString()),
+                    ),
+                  );
+                },
+                autoRun: autoRun,
+                child: const Text('Not synchronise function'),
+              ),
+            ],
+          ),
         ),
       ),
     );

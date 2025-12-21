@@ -1,3 +1,9 @@
+## 0.0.9
+
+- Update : Dart SDK constraints.
+- Add : `PendingButtonController` to allow triggering the async action programmatically.
+- fix : `onSuccess` and `onError` handling when the provided callback is not asynchronous.
+
 ## 0.0.8
 
 - Update : dart sdk 3.6.0

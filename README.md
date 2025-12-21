@@ -9,7 +9,7 @@ Button pending is a basic Button indicate the different state of the asynchronou
 Add `pending_button` to your `pubspec.yaml` as a dependacy
 
 ```yaml
-dependencies: pending_button:0.0.7
+dependencies: pending_button:0.0.9
 ```
 
 ## Usage
@@ -100,6 +100,29 @@ PendingButton(
     }
     child: Text('Authentificate'),
 ),
+```
+
+### PendingButtonController
+
+`PendingButtonController` allows you to trigger the button’s asynchronous action programmatically, without requiring a user click.
+
+- This is useful when you want the button to run automatically after a specific event, such as:
+- Form validation success
+- Screen initialization
+- External state change (auth, deep link, etc.)
+
+#### Basic usage
+
+```dart
+final controller = PendingButtonController();
+...
+PendingButton(
+    asynFunction: myFunction,
+    autoRun: controller,
+    child: Text('Authentificate'),
+),
+...
+controller.run();
 ```
 
 ### Decortaion (Optinal)
